@@ -30,6 +30,7 @@ class OrderService extends InitController
         try {
             return $this->respondCreated([$this->repository->store($request)]);
         } catch (\Exception $e) {
+            DB::rollBack();
             $code = $e->getCode();
             $message = $e->getMessage();
             return response()->json(["message" => $message], $code);

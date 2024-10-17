@@ -28,6 +28,7 @@ class ProductService extends InitController
         try {
             return $this->respondCreated([$this->repository->store($request)]);
         } catch (\Exception $e) {
+            DB::rollBack();
             return $this->respondError($e->getMessage());
         }
     }
